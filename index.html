@@ -3,26 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>*My GitHub Pages Site*</title>
+    <title>My Tech Portfolio</title>
+    <!-- Use Tailwind CSS for a modern, responsive design -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .message-container {
+            max-height: 400px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .user-message {
+            background-color: #3b82f6;
+            color: white;
+            padding: 10px;
+            border-radius: 1rem;
+            align-self: flex-end;
+            max-width: 80%;
+        }
+        .bot-message {
+            background-color: #e5e7eb;
+            color: #1f2937;
+            padding: 10px;
+            border-radius: 1rem;
+            align-self: flex-start;
+            max-width: 80%;
         }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-100 flex items-center justify-center min-h-screen p-4">
-    <div class="max-w-xl w-full bg-gray-800 rounded-lg shadow-lg p-8 text-center border border-gray-700">
-        <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-4 leading-tight">
-            Welcome to My New Website!
-        </h1>
-        <p class="text-base sm:text-lg text-gray-400 mb-8">
-            This is a brand new site hosted on GitHub Pages. You can edit this file to make it your own.
-        </p>
-        <a href="https://github.com/pages" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
-            Learn More About GitHub Pages
-        </a>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+
+    <div class="container bg-white shadow-xl rounded-2xl w-full max-w-4xl p-8 flex flex-col md:flex-row gap-8">
+        <!-- Main Content Area -->
+        <div class="flex-1 space-y-8">
+            <header class="text-center md:text-left">
+                <h1 class="text-4xl font-bold text-gray-800">Hi, I'm [Your Name]</h1>
+                <p class="text-xl text-gray-500 mt-2">A dedicated Quality Assurance professional.</p>
+            </header>
+
+            <section class="space-y-6">
+                <h2 class="text-2xl font-bold text-gray-700 border-b-2 pb-2">About Me</h2>
+                <p class="text-gray-600 leading-relaxed">
+                    Welcome to my portfolio! I'm a passionate Quality Assurance professional with a focus
+                    on ensuring software is robust and reliable. My experience spans both manual and
+                    automation testing, allowing me to approach quality from a holistic perspective.
+                    I enjoy designing comprehensive test plans and writing efficient automation scripts
+                    to streamline the testing process. This site is a showcase of my skills and projects.
+                </p>
+
+                <h2 class="text-2xl font-bold text-gray-700 border-b-2 pb-2">My Latest Project</h2>
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                    <h3 class="text-xl font-semibold text-gray-800">Automating a Web Form</h3>
+                    <p class="text-gray-500 text-sm mt-1">Published on September 23, 2025</p>
+                    <p class="text-gray-600 mt-4 leading-relaxed">
+                        One of my recent projects involved creating an automation framework to test a
+                        complex web form. Using tools like Cypress, I wrote scripts to simulate user
+                        interactions, validate data inputs, and ensure a seamless user experience.
+                        This project demonstrated my ability to build repeatable, reliable tests that
+                        can quickly identify regressions.
+                    </p>
+                </div>
+            </section>
+        </div>
+
+        <!-- Chatbot Interface -->
+        <div class="w-full md:w-96 flex flex-col h-[500px] bg-white rounded-xl shadow-inner border border-gray-200">
+            <header class="bg-indigo-600 text-white p-4 rounded-t-xl text-center">
+                <h3 class="font-bold">Chat with my QA assistant</h3>
+                <p class="text-sm opacity-80">Ask me about my skills or projects!</p>
+            </header>
+            <div id="chatbox" class="message-container flex-1 p-4">
+                <!-- Initial bot message -->
+                <div class="bot-message rounded-bl-none">Hello! I'm here to answer your questions about the QA professional. Try asking me "what are your skills?" or "do you do automation?".</div>
+            </div>
+            <div class="p-4 border-t border-gray-200 flex">
+                <input type="text" id="userInput" class="flex-1 p-2 rounded-l-xl border-t border-b border-l border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-shadow" placeholder="Type a message...">
+                <button id="sendBtn" class="bg-indigo-600 text-white p-2 rounded-r-xl px-4 font-semibold hover:bg-indigo-700 transition-colors">Send</button>
+            </div>
+        </div>
     </div>
+
+    <script>
+        // Get references to DOM elements
+        const chatbox = document.getElementById('chatbox');
+        const userInput = document.getElementById('userInput');
+        const sendBtn = document.getElementById('sendBtn');
+
+        // Function to handle chatbot logic
+        function getBotResponse(input) {
+            // Convert input to lowercase for easier matching
+            const lowerInput = input.toLowerCase().trim();
+
+            if (lowerInput.includes('who are you')) {
+                return "I am a simple, JavaScript-powered chatbot designed to assist you on this portfolio website. I'm hosted entirely on GitHub Pages!";
+            } else if (lowerInput.includes('your skills') || lowerInput.includes('what can you do')) {
+                return "I can answer basic questions about this website and the QA professional's work. My skills are limited, but you can always try asking something new!";
+            } else if (lowerInput.includes('qa skills') || lowerInput.includes('automation') || lowerInput.includes('testing')) {
+                return "The professional behind me has expertise in both manual and automation testing. They are skilled in creating test plans, designing test cases, and using tools like Cypress for automation.";
+            } else if (lowerInput.includes('contact')) {
+                return "You can find my professional's contact information in the footer or on their GitHub profile.";
+            } else if (lowerInput.includes('projects')) {
+                return "The most recent project is an automation framework for a web form, which you can read about on the site. This project highlights skills in Cypress and automated testing.";
+            } else {
+                return "I'm not sure how to respond to that yet. Maybe try asking about their QA skills or recent projects.";
+            }
+        }
+
+        // Function to add a message to the chatbox
+        function addMessage(text, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.textContent = text;
+            messageElement.classList.add(sender === 'user' ? 'user-message' : 'bot-message');
+            // Remove the rounded corner on the side the message is pointing to
+            if (sender === 'user') {
+                 messageElement.classList.add('rounded-br-none');
+            } else {
+                messageElement.classList.add('rounded-bl-none');
+            }
+            chatbox.appendChild(messageElement);
+            // Scroll to the bottom to show the latest message
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+
+        // Event listener for the send button
+        sendBtn.addEventListener('click', () => {
+            const userText = userInput.value;
+            if (userText.trim() === '') return;
+
+            // Add user message to chatbox
+            addMessage(userText, 'user');
+            userInput.value = ''; // Clear the input field
+
+            // Simulate a short delay before bot responds
+            setTimeout(() => {
+                const botText = getBotResponse(userText);
+                addMessage(botText, 'bot');
+            }, 500);
+        });
+
+        // Event listener for the Enter key in the input field
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendBtn.click();
+            }
+        });
+
+    </script>
 </body>
 </html>
